@@ -34,7 +34,6 @@ let players = [ // array
 
 
 // Setting up the teams
-
 var dragons: [[String: String]] = []
 var sharks: [[String: String]] = []
 var raptors: [[String: String]] = []
@@ -44,16 +43,15 @@ var teams = [dragons,sharks,raptors]
 
 
 // Sort players with experience and those without
-
 var playersWithExperience: [[String: String]] = []
 var playersWithoutExperience: [[String: String]] = []
 
 
 
+
 // for in loop iterates if statements to check if the value of experience is set to YES or NO
 // and then appends to coresponding array
-
-for player in players { 
+for player in players {
     
     if player["experience"] == "YES" {
         playersWithExperience.append(player)
@@ -64,20 +62,75 @@ for player in players {
     }
 }
 
+
+
+
+
+// calculate how many experienced players should be on each team
 var experiencedPlayersPerTeam = playersWithExperience.count / teams.count
 
-var i = 0
+// calculate total players per team
+var totalPlayersPerTeam = (playersWithExperience.count + playersWithExperience.count) / teams.count
 
-while i < playersWithExperience.count {
-    while dragons.count < experiencedPlayersPerTeam {
-        dragons.append(playersWithExperience[i])
-        
+
+
+
+
+var experiencedPlayerIndex = 0 // init index
+
+// iterate over the range of experienced players
+while experiencedPlayerIndex < playersWithExperience.count {
+    
+    // Make sure team does not exceed amount of experiencedPlayersPerTeam
+    if dragons.count < experiencedPlayersPerTeam {
+        dragons.append(playersWithExperience[experiencedPlayerIndex])
     }
     
-    i += 1
+    experiencedPlayerIndex += 1 // +1 to make sure we dont add the same player to the next team
+    if sharks.count < experiencedPlayersPerTeam {
+        sharks.append(playersWithExperience[experiencedPlayerIndex])
+    }
+    
+    experiencedPlayerIndex += 1
+    if raptors.count < experiencedPlayersPerTeam {
+        raptors.append(playersWithExperience[experiencedPlayerIndex])
+    }
+    
+    experiencedPlayerIndex += 1
 }
 
-print(dragons)
+
+
+var unexperiencedPlayerIndex = 0
+
+// adding the unexperienced players
+while unexperiencedPlayerIndex < playersWithoutExperience.count {
+    if dragons.count < totalPlayersPerTeam {
+        dragons.append(playersWithoutExperience[unexperiencedPlayerIndex])
+    }
+    unexperiencedPlayerIndex += 1
+    if sharks.count < totalPlayersPerTeam {
+        sharks.append(playersWithoutExperience[unexperiencedPlayerIndex])
+    }
+    unexperiencedPlayerIndex += 1
+    if raptors.count < totalPlayersPerTeam {
+        raptors.append(playersWithoutExperience[unexperiencedPlayerIndex])
+    }
+    unexperiencedPlayerIndex += 1
+    
+}
+
+
+// Letters
+
+var letterIndex = 0
+
+
+while letterIndex < players.count {
+    print
+    
+    letterIndex += 1
+}
 
 
 
