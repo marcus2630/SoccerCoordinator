@@ -3,8 +3,12 @@
 import UIKit
 
 
-// create an array of dictionaries holding each players information
+//////////////////////////////////////
+///////////// Data Model /////////////
+//////////////////////////////////////
 
+
+// create an array of dictionaries holding each players information
 let players = [ // array
     ["name": "Joe Smith",           "height": "42", "experience": "YES",   "guardians": "Jim and Jan Smith"], // dictionaries
     ["name": "Jill Tanner",         "height": "36", "experience": "YES",   "guardians": "Clara Tanner"],
@@ -26,110 +30,72 @@ let players = [ // array
     ["name": "Herschel Krustofski", "height": "45", "experience": "YES",   "guardians": "Hyman and Rachel Krustofski"]
 ]
 
-//
-//      A struct could have been used instead, this way creating a player instance would be easier
-//
-
-
-
-
-// Setting up the teams
+// Initializing team arrays of dictionary literals
 var dragons: [[String: String]] = []
 var sharks: [[String: String]] = []
 var raptors: [[String: String]] = []
+
+// Make collection of teams
 var teams = [dragons,sharks,raptors]
 
 
 
 
-// Sort players with experience and those without
+
+
+//////////////////////////////////////
+////////// Player logic //////////////
+//////////////////////////////////////
+
+// Initialize player experience categories
 var playersWithExperience: [[String: String]] = []
 var playersWithoutExperience: [[String: String]] = []
 
 
-
-
-// for in loop iterates if statements to check if the value of experience is set to YES or NO
-// and then appends to coresponding array
+// for in loop sorts the players
 for player in players {
     
     if player["experience"] == "YES" {
-        playersWithExperience.append(player)
+        playersWithExperience.append(player) // append player dictionary to playersWithExperience
     } else {
         if player["experience"] == "NO" {
-            playersWithoutExperience.append(player)
+            playersWithoutExperience.append(player) // append player dictionary to playersWithoutExperience
         }
     }
 }
 
 
+//////// MATH /////////
 
-
-
-// calculate how many experienced players should be on each team
+// Calculate experienced players per team
 var experiencedPlayersPerTeam = playersWithExperience.count / teams.count
 
 // calculate total players per team
-var totalPlayersPerTeam = (playersWithExperience.count + playersWithExperience.count) / teams.count
+var unexperiencedPlayersPerTeam = playersWithoutExperience.count / teams.count
 
 
+//////// Arranging the teams //////////
 
 
-
-var experiencedPlayerIndex = 0 // init index
-
-// iterate over the range of experienced players
-while experiencedPlayerIndex < playersWithExperience.count {
-    
-    // Make sure team does not exceed amount of experiencedPlayersPerTeam
-    if dragons.count < experiencedPlayersPerTeam {
-        dragons.append(playersWithExperience[experiencedPlayerIndex])
+// dragons
+var experiencedCounter = 0
+var unexperiencedCounter = 0
+for player in players {
+    if (player["experience"] == "YES") && experiencedCounter <= experiencedPlayersPerTeam {
+        switch player["height"]! {
+            case "42": dragons.append(player)
+            default: ()
+        }
+    experiencedCounter += 1
     }
-    
-    experiencedPlayerIndex += 1 // +1 to make sure we dont add the same player to the next team
-    if sharks.count < experiencedPlayersPerTeam {
-        sharks.append(playersWithExperience[experiencedPlayerIndex])
+    if player["experience"] == "NO" && unexperiencedCounter <= unexperiencedPlayersPerTeam {
+        switch player["height"]! {
+        case "43","41": dragons.append(player)
+        default: ()
+        }
+    unexperiencedCounter += 1
     }
-    
-    experiencedPlayerIndex += 1
-    if raptors.count < experiencedPlayersPerTeam {
-        raptors.append(playersWithExperience[experiencedPlayerIndex])
-    }
-    
-    experiencedPlayerIndex += 1
-}
 
-
-
-var unexperiencedPlayerIndex = 0
-
-// adding the unexperienced players
-while unexperiencedPlayerIndex < playersWithoutExperience.count {
-    if dragons.count < totalPlayersPerTeam {
-        dragons.append(playersWithoutExperience[unexperiencedPlayerIndex])
-    }
-    unexperiencedPlayerIndex += 1
-    if sharks.count < totalPlayersPerTeam {
-        sharks.append(playersWithoutExperience[unexperiencedPlayerIndex])
-    }
-    unexperiencedPlayerIndex += 1
-    if raptors.count < totalPlayersPerTeam {
-        raptors.append(playersWithoutExperience[unexperiencedPlayerIndex])
-    }
-    unexperiencedPlayerIndex += 1
-    
-}
-
-
-// Letters
-
-var letterIndex = 0
-
-
-while letterIndex < players.count {
-    print
-    
-    letterIndex += 1
 }
 
 
@@ -141,3 +107,32 @@ while letterIndex < players.count {
 
 
 
+
+
+
+
+
+
+//////////////////////////////////////
+////////// Letters logic /////////////
+//////////////////////////////////////
+
+// - for-in loop itereates through the team array and prints out values from each dicionary
+for player in dragons {
+    print("Dear \(player["guardians"]!), \(player["name"]!) will be playing for the Dragons. Date: March 17, 1pm")
+}
+
+for player in sharks {
+    print("Dear \(player["guardians"]!), \(player["name"]!) will be playing for the Sharks. Date: March 17, 3pm")
+}
+
+for player in raptors {
+    print("Dear \(player["guardians"]!), \(player["name"]!) will be playing for the Sharks. Date: March 17, 3pm")
+}
+
+
+var zyx = 0
+while zyx < dragons.count {
+    print(dragons[zyx])
+    zyx += 1
+}
