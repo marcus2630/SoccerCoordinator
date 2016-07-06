@@ -1,12 +1,9 @@
-//: Playground - noun: a place where people can play
-
 import UIKit
 
 
-//////////////////////////////////////
-///////////// Data Model /////////////
-//////////////////////////////////////
 
+//////////////////////////////////////
+///////////// Data Model
 
 // create an array of dictionaries holding each players information
 let players = [ // array
@@ -36,19 +33,20 @@ var dragons: [[String: String]] = []
 var sharks: [[String: String]] = []
 var raptors: [[String: String]] = []
 
+var teams = [dragons,sharks,raptors] // array of teams
 
-var teams = [dragons,sharks,raptors]
+
 
 //////////////////////////////////////
-////////// Player logic //////////////
-//////////////////////////////////////
+////////// Player logic
 
 let playersPerTeam = players.count / teams.count
 
-
+// indexes for the loop
 var experiencedIndex = 1
 var unexperiencedIndex = 1
 
+// loop iterating the players to the correct teams
 for player in players {
     if player["experience"] == "YES" {
         switch (experiencedIndex % playersPerTeam) {
@@ -60,6 +58,7 @@ for player in players {
         case 0: sharks.append(player)
         default: break
         }
+        experiencedIndex += 1
     }
     if player["experience"] == "NO" {
         switch (unexperiencedIndex % playersPerTeam) {
@@ -71,6 +70,7 @@ for player in players {
         case 0: raptors.append(player)
         default: break
         }
+        unexperiencedIndex += 1
     }
 }
 
@@ -78,10 +78,9 @@ for player in players {
 
 
 //////////////////////////////////////
-////////// Letters logic /////////////
-//////////////////////////////////////
+////////// Letters logic
 
-// - for-in loop itereates through the team array and prints out values from each dicionary
+// loop itereates through the team arrays and prints out values from each dicionary
 for player in dragons {
     print("Dear \(player["guardians"]!), \(player["name"]!) will be playing for the Dragons. Date: March 17, 1pm")
 }
@@ -92,22 +91,4 @@ for player in sharks {
 
 for player in raptors {
     print("Dear \(player["guardians"]!), \(player["name"]!) will be playing for the Raptors. Date: March 17, 3pm")
-}
-
-
-var zyx = 0
-while zyx < dragons.count {
-    print("Dragons: \(dragons[zyx])")
-    zyx += 1
-}
-var zyx3 = 0
-while zyx3 < sharks.count {
-    print("Sharks: \(sharks[zyx3])")
-    zyx3 += 1
-}
-
-var zyx2 = 0
-while zyx2 < raptors.count {
-    print("Raptors: \(raptors[zyx2])")
-    zyx2 += 1
 }
