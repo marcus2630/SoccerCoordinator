@@ -27,7 +27,8 @@ let players = [ // array
     ["name": "Arnold Wills",        "height": "43", "experience": "NO",  "guardians": "Claire Willis"],
     ["name": "Phillip Helm",        "height": "44", "experience": "YES",   "guardians": "Thomas Helm and Eva Jones"],
     ["name": "Les Clay",            "height": "42", "experience": "YES",   "guardians": "Wynonna Brown"],
-    ["name": "Herschel Krustofski", "height": "45", "experience": "YES",   "guardians": "Hyman and Rachel Krustofski"]
+    ["name": "Herschel Krustofski", "height": "45", "experience": "YES",   "guardians": "Hyman and Rachel Krustofski"],
+    
 ]
 
 // Initializing team arrays of dictionary literals
@@ -35,80 +36,43 @@ var dragons: [[String: String]] = []
 var sharks: [[String: String]] = []
 var raptors: [[String: String]] = []
 
-// Make collection of teams
+
 var teams = [dragons,sharks,raptors]
-
-
-
-
-
 
 //////////////////////////////////////
 ////////// Player logic //////////////
 //////////////////////////////////////
 
-// Initialize player experience categories
-var playersWithExperience: [[String: String]] = []
-var playersWithoutExperience: [[String: String]] = []
+let playersPerTeam = players.count / teams.count
 
 
-// for in loop sorts the players
+var experiencedIndex = 1
+var unexperiencedIndex = 1
+
 for player in players {
-    
     if player["experience"] == "YES" {
-        playersWithExperience.append(player) // append player dictionary to playersWithExperience
-    } else {
-        if player["experience"] == "NO" {
-            playersWithoutExperience.append(player) // append player dictionary to playersWithoutExperience
+        switch (experiencedIndex % playersPerTeam) {
+        case 1: sharks.append(player)
+        case 2: dragons.append(player)
+        case 3: raptors.append(player)
+        case 4: raptors.append(player)
+        case 5: dragons.append(player)
+        case 0: sharks.append(player)
+        default: break
+        }
+    }
+    if player["experience"] == "NO" {
+        switch (unexperiencedIndex % playersPerTeam) {
+        case 1: raptors.append(player)
+        case 2: dragons.append(player)
+        case 3: sharks.append(player)
+        case 4: sharks.append(player)
+        case 5: dragons.append(player)
+        case 0: raptors.append(player)
+        default: break
         }
     }
 }
-
-
-//////// MATH /////////
-
-// Calculate experienced players per team
-var experiencedPlayersPerTeam = playersWithExperience.count / teams.count
-
-// calculate total players per team
-var unexperiencedPlayersPerTeam = playersWithoutExperience.count / teams.count
-
-
-//////// Arranging the teams //////////
-
-
-// dragons
-var experiencedCounter = 0
-var unexperiencedCounter = 0
-for player in players {
-    if (player["experience"] == "YES") && experiencedCounter <= experiencedPlayersPerTeam {
-        switch player["height"]! {
-            case "42": dragons.append(player)
-            default: ()
-        }
-    experiencedCounter += 1
-    }
-    if player["experience"] == "NO" && unexperiencedCounter <= unexperiencedPlayersPerTeam {
-        switch player["height"]! {
-        case "43","41": dragons.append(player)
-        default: ()
-        }
-    unexperiencedCounter += 1
-    }
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -127,12 +91,23 @@ for player in sharks {
 }
 
 for player in raptors {
-    print("Dear \(player["guardians"]!), \(player["name"]!) will be playing for the Sharks. Date: March 17, 3pm")
+    print("Dear \(player["guardians"]!), \(player["name"]!) will be playing for the Raptors. Date: March 17, 3pm")
 }
 
 
 var zyx = 0
 while zyx < dragons.count {
-    print(dragons[zyx])
+    print("Dragons: \(dragons[zyx])")
     zyx += 1
+}
+var zyx3 = 0
+while zyx3 < sharks.count {
+    print("Sharks: \(sharks[zyx3])")
+    zyx3 += 1
+}
+
+var zyx2 = 0
+while zyx2 < raptors.count {
+    print("Raptors: \(raptors[zyx2])")
+    zyx2 += 1
 }
